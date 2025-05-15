@@ -1,5 +1,5 @@
-# Concise  
-A web application to summarize articles by providing a URL.
+# Concise 
+A web application designed to summarize articles by providing a URL. Concise simplifies the process of extracting key information from lengthy articles, making it easier for users to consume content efficiently.
 
 ---
 
