@@ -23,8 +23,8 @@ export default function Hero() {
           </span>
         </h1>
         <h2 className="mt-5 text-lg text-gray-600 sm:text-xl text-center max-w-2xl">
-          Simplify your reading with our open-source article summarizer that
-          transforms lengthy articles into clear and concise summaries.
+          Simplify your reading with our intelligent summarizer that transforms
+          lengthy articles into clear and concise summaries
         </h2>
       </header>
     </>

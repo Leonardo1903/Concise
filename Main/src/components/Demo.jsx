@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Copy, Link2, Loader, Check } from "lucide-react";
+import { Copy, Link2, Loader, Check, X } from "lucide-react";
 import { useLazyGetSummaryQuery } from "@/services/article";
 
 export default function Demo() {
@@ -9,6 +9,7 @@ export default function Demo() {
   });
 
   const [allArticles, setAllArticles] = useState([]);
+  const [copiedUrl, setCopiedUrl] = useState(""); // <-- Add this line
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
 
   useEffect(() => {
@@ -36,12 +37,22 @@ export default function Demo() {
     }
   };
 
-  const handleCopy = (e) => {
+  const handleCopy = (e, url) => {
     e.stopPropagation();
-    navigator.clipboard.writeText(article.url);
-    alert("URL copied to clipboard!");
+    navigator.clipboard.writeText(url);
+    setCopiedUrl(url);
+    setTimeout(() => setCopiedUrl(""), 1500);
   };
-  const handleKeyDown = () => {};
+
+  const handleRemove = (e, url) => {
+    e.stopPropagation();
+    const updatedArticles = allArticles.filter((item) => item.url !== url);
+    setAllArticles(updatedArticles);
+    localStorage.setItem("articles", JSON.stringify(updatedArticles));
+    if (article.url === url) {
+      setArticle({ url: "", summary: "" });
+    }
+  };
 
   return (
     <>
@@ -58,20 +69,16 @@ export default function Demo() {
               className="block w-full rounded-md border border-gray-200 bg-white py-2.5 pl-10 pr-12 text-sm shadow-lg font-satoshi font-medium focus:border-black focus:outline-none focus:ring-0 peer"
               value={article.url}
               onChange={(e) => setArticle({ ...article, url: e.target.value })}
-              onKeyDown={handleKeyDown}
               required
             />
             <button
               type="submit"
               className="absolute right-0 my-2 mr-3 rounded-md bg-black py-2.5 px-4 text-sm font-medium text-white transition-all 
               peer-focus:border-gray-700
-            
                 peer-focus
               "
             >
-              <span className="flex items-center gap-2">
-                Summarize
-              </span>
+              <span className="flex items-center gap-2">Summarize</span>
             </button>
           </form>
 
@@ -91,12 +98,25 @@ export default function Demo() {
                   >
                     {item.url}
                   </a>
-                  <button
-                    onClick={handleCopy}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    <Copy className="w-5 h-5" />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={(e) => handleCopy(e, item.url)}
+                      className="text-gray-500 hover:text-gray-700 flex items-center"
+                    >
+                      {copiedUrl === item.url ? (
+                        <Check className="w-5 h-5 text-green-500" />
+                      ) : (
+                        <Copy className="w-5 h-5" />
+                      )}
+                    </button>
+                    <button
+                      onClick={(e) => handleRemove(e, item.url)}
+                      className="text-gray-400 hover:text-red-500 flex items-center"
+                      title="Remove"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
               ))}
           </div>
