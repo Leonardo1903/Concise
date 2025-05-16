@@ -12,7 +12,6 @@ export default function Demo() {
   const [copiedUrl, setCopiedUrl] = useState("");
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
 
-  // Load articles from localStorage on mount
   useEffect(() => {
     const articlesFromLocalStorage = JSON.parse(
       localStorage.getItem("articles")
@@ -22,7 +21,6 @@ export default function Demo() {
     }
   }, []);
 
-  // Fetch summary if URL is passed via query param
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const sharedUrl = params.get("url");
@@ -49,7 +47,13 @@ export default function Demo() {
       setArticle({ url: sharedUrl, summary: "" });
       fetchSummary();
     }
-  }, [allArticles, getSummary]);
+
+    params.delete("url");
+    const newUrl =
+      window.location.pathname +
+      (params.toString() ? "?" + params.toString() : "");
+    window.history.replaceState({}, "", newUrl);
+  }, []); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +62,7 @@ export default function Demo() {
     if (data?.summary) {
       const newArticle = { ...article, summary: data.summary };
       const updatedArticles = [newArticle, ...allArticles];
-      setArticle({ url: "", summary: data.summary });
+      setArticle(newArticle);
       setAllArticles(updatedArticles);
       localStorage.setItem("articles", JSON.stringify(updatedArticles));
     } else if (error) {
