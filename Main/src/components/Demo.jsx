@@ -58,7 +58,7 @@ export default function Demo() {
     if (data?.summary) {
       const newArticle = { ...article, summary: data.summary };
       const updatedArticles = [newArticle, ...allArticles];
-      setArticle(newArticle);
+      setArticle({ url: "", summary: data.summary });
       setAllArticles(updatedArticles);
       localStorage.setItem("articles", JSON.stringify(updatedArticles));
     } else if (error) {
