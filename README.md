@@ -23,10 +23,10 @@ A web application and Chrome extension designed to summarize articles by providi
 
 ## Key Learnings
 
-- Building a responsive web application with React and TailwindCSS.
-- Using Redux Toolkit Query for fetching and caching API data efficiently.
-- Using RapidAPI for article extraction and summarization.
-- Creating a Chrome Extension with Vite, React, and TailwindCSS.
+- Building responsive web applications with React and TailwindCSS.
+- Efficient API data fetching and caching with Redux Toolkit Query.
+- Integrating third-party APIs (RapidAPI) for content extraction and summarization.
+- Developing Chrome Extensions with React, Vite, and TailwindCSS.
 
 ---
 
