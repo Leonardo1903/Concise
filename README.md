@@ -109,15 +109,12 @@ VITE_RAPID_API_KEY=your_rapid_api_key
 ---
 
 ## Screenshots
-
-**Landing Page**:  
-![Landing Page](#)  
-
 **Summary Dashboard**:  
-![Summary Dashboard](#)
+![Summary Dashboard](https://github.com/user-attachments/assets/f038bcc4-9861-4d07-93a8-211a97d27ccc)
 
 **Chrome Extension Popup**:  
-![Extension Popup](#)
+![Extension Popup](https://github.com/user-attachments/assets/70eed0d5-174f-4da4-a5f6-e63898e03f97)
+
 
 ---
 
