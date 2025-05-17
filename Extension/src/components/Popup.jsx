@@ -15,9 +15,7 @@ export default function Popup() {
           const tab = tabs[0];
           if (tab && tab.url) {
             const url = encodeURIComponent(tab.url);
-            // const summarizerUrl = `https://concise-iota.vercel.app/?url=${url}`
-
-            const summarizerUrl = `http://localhost:5173/?url=${url}`;
+            const summarizerUrl = `https://concise-iota.vercel.app/?url=${url}`;
             window.chrome.tabs.create({ url: summarizerUrl });
             setIsLoading(false);
           }
