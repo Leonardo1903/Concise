@@ -33,8 +33,8 @@
 
 // export default App;
 
-import Hero from "@/components/hero";
-import Demo from "@/components/demo";
+import Hero from "@/components/Hero";
+import Demo from "@/components/Demo";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export default function Home() {
