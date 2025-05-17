@@ -1,38 +1,3 @@
-// import "./App.css";
-// import Hero from "@/components/Hero";
-// import Demo from "@/components/Demo";
-
-// function App() {
-//   return (
-//     <>
-//       <main>
-//         <div
-//           className="fixed w-screen min-h-screen flex justify-center
-//         pt-[120px] pb-[160px] px-6 pointer-events-none
-//         before:content-[''] before:absolute before:inset-0 before:z-20
-//         before:bg-[radial-gradient(circle,rgba(2,0,36,0)_0,#fafafa_100%)]
-//         after:content-[''] after:absolute after:inset-0 after:z-10
-//         after:bg-[url('/src/assets/grid.svg')] after:opacity-40 after:invert"
-//         >
-//           <div
-//             className="relative z-30 w-full max-w-[640px] h-fit
-//           before:content-[''] before:absolute before:inset-0
-//           before:bg-[radial-gradient(at_27%_37%,_hsla(215,98%,61%,1)_0px,_transparent_0%),radial-gradient(at_97%_21%,_hsla(125,98%,72%,1)_0px,_transparent_50%),radial-gradient(at_52%_99%,_hsla(354,98%,61%,1)_0px,_transparent_50%),radial-gradient(at_10%_29%,_hsla(256,96%,67%,1)_0px,_transparent_50%),radial-gradient(at_97%_96%,_hsla(38,60%,74%,1)_0px,_transparent_50%),radial-gradient(at_33%_50%,_hsla(222,67%,73%,1)_0px,_transparent_50%),radial-gradient(at_79%_53%,_hsla(343,68%,79%,1)_0px,_transparent_50%)]
-//           before:filter-[blur(100px)_saturate(150%)] before:top-20 before:opacity-15"
-//           />
-//         </div>
-
-//         <div className="relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6">
-//           <Hero />
-//           <Demo />
-//         </div>
-//       </main>
-//     </>
-//   );
-// }
-
-// export default App;
-
 import Hero from "@/components/Hero";
 import Demo from "@/components/Demo";
 import { ThemeProvider } from "@/components/theme-provider";
