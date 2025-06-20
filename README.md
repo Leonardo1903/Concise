@@ -122,7 +122,7 @@ VITE_RAPID_API_KEY=your_rapid_api_key
 
 ## Demo
 
-[Live Demo](https://concise-iota.vercel.app/)
+[Live Demo](https://concise.leonardo1903.me/)
 
 ---
 
