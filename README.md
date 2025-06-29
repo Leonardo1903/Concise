@@ -1,5 +1,5 @@
 # Concise 
-A web application and Chrome extension designed to summarize articles by providing a URL. Concise simplifies the process of extracting key information from lengthy articles, making it easier for users to consume content efficiently.
+A web application and Chrome extension designed to help users quickly summarize articles by providing a URL. It streamlines the process of extracting key information from lengthy articles, making content consumption more efficient and accessible. 
 
 ---
 
