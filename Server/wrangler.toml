@@ -1,0 +1,13 @@
+name = "concise-server"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[build]
+command = "npx prisma generate --no-engine && npm run build"
+
+# Add this section to handle Prisma client
+[build.upload]
+format = "modules"
+
+# External modules that should not be bundled
+node_compat = true

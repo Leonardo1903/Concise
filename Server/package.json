@@ -1,0 +1,23 @@
+{
+  "name": "Server",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@noble/hashes": "^1.8.0",
+    "@prisma/client": "^6.17.1",
+    "@prisma/extension-accelerate": "^2.0.2",
+    "axios": "^1.12.2",
+    "cheerio": "^1.1.2",
+    "hono": "^4.10.0",
+    "prisma": "^6.17.1"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.35",
+    "wrangler": "^4.4.0"
+  }
+}
