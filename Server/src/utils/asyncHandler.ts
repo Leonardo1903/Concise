@@ -1,12 +1,14 @@
 import type { Context, Next } from 'hono'
 
-type HandlerFunction = (c: Context, next?: Next) => Promise<void>
+type HandlerFunction = (c: Context, next?: Next) => Promise<Response | void>
 
-const asyncHandler = (requestHandler: HandlerFunction) => {
-  return async (c: Context, next?: Next) => {
-    return Promise.resolve(requestHandler(c, next)).catch((error) => {
+const asyncHandler = (fn: HandlerFunction) => {
+  return async (c: Context, next?: Next): Promise<Response | void> => {
+    try {
+      return await fn(c, next)
+    } catch (error) {
       throw error
-    })
+    }
   }
 }
 
