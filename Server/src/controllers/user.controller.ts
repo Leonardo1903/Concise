@@ -24,7 +24,13 @@ const verifyPassword = (password: string, hashedPassword: string): boolean => {
 export const registerUser = asyncHandler(async (c: Context) => {
   const prisma = getPrismaClient(c.env?.DATABASE_URL)
   const { email, password, name } = await c.req.json()
-  
+
+  // Simple email format validation
+  const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+  if (!emailRegex.test(email)) {
+    throw new ApiError(500, "Invalid email address");
+  }
+
   // Validate input
   if (!email || !password || !name) {
     const error = new ApiError(400, 'Missing required fields')
@@ -89,6 +95,12 @@ export const registerUser = asyncHandler(async (c: Context) => {
 export const loginUser = asyncHandler(async (c: Context) => {
   const prisma = getPrismaClient(c.env?.DATABASE_URL)
   const { email, password } = await c.req.json()
+
+  // Simple email format validation
+  const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+  if (!emailRegex.test(email)) {
+    throw new ApiError(500, "Invalid email address");
+  }
   
   // Validate input
   if (!email || !password) {
