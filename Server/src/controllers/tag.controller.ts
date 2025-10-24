@@ -9,6 +9,7 @@ export const createTag = asyncHandler(async (c: Context) => {
     const prisma = getPrismaClient(c.env?.DATABASE_URL)
     const user = c.get('user')
     const { name } = await c.req.json()
+    
     if (!user) {
         const error = new ApiError(401, 'Unauthorized')
         return c.json(error, 401)
@@ -19,20 +20,28 @@ export const createTag = asyncHandler(async (c: Context) => {
         return c.json(error, 400)
     }
 
-    const newTag = await prisma.tag.create({
-        data: {
-            name,
-            ownerId: user.id
+    try {
+        const newTag = await prisma.tag.create({
+            data: {
+                name,
+                ownerId: user.id
+            }
+        })
+
+        const response = new ApiResponse(
+            201,
+            { tag: newTag },
+            'Tag created successfully'
+        )
+        return c.json(response, 201)
+    } catch (error: any) {
+
+        if (error.code === 'P2002') {
+            const apiError = new ApiError(409, 'Tag with this name already exists')
+            return c.json(apiError, 409)
         }
-
-    })
-
-    const response = new ApiResponse(
-        201,
-        { tag: newTag },
-        'Tag created successfully'
-    )
-    return c.json(response, 201)
+        throw error
+    }
 })
 
 export const getTags = asyncHandler(async (c: Context) => {
@@ -56,43 +65,51 @@ export const getTags = asyncHandler(async (c: Context) => {
 })
 
 export const updateTag = asyncHandler(async (c: Context) => {
-    try {
-        const prisma = getPrismaClient(c.env?.DATABASE_URL)
-        const user = c.get('user')
-        const tagId = parseInt(c.req.param('id'))
-        const { name } = await c.req.json()
-        if (!user) {
-            const error = new ApiError(401, 'Unauthorized')
-            return c.json(error, 401)
-        }
-        if (isNaN(tagId)) {
-            const error = new ApiError(400, 'Invalid tag ID')
-            return c.json(error, 400)
-        }
-        if (!name) {
-            const error = new ApiError(400, 'Tag name is required')
-            return c.json(error, 400)
-        }
-        const updatedTag = await prisma.tag.update({
-            where: {
-                id: tagId,
-                ownerId: user.id
-            },
-            data: {
-                name
-            }
-        })
-        const response = new ApiResponse(
-            200,
-            { tag: updatedTag },
-            'Tag updated successfully'
-        )
-        return c.json(response, 200)
-
-    } catch (error) {
-        const apiError = new ApiError(500, 'Internal Server Error')
-        return c.json(apiError, 500)
+    const prisma = getPrismaClient(c.env?.DATABASE_URL)
+    const user = c.get('user')
+    const tagId = parseInt(c.req.param('id'))
+    const { name } = await c.req.json()
+    
+    if (!user) {
+        const error = new ApiError(401, 'Unauthorized')
+        return c.json(error, 401)
     }
+    if (isNaN(tagId)) {
+        const error = new ApiError(400, 'Invalid tag ID')
+        return c.json(error, 400)
+    }
+    if (!name) {
+        const error = new ApiError(400, 'Tag name is required')
+        return c.json(error, 400)
+    }
+    
+    const existingTag = await prisma.tag.findFirst({
+        where: {
+            id: tagId,
+            ownerId: user.id
+        }
+    })
+
+    if (!existingTag) {
+        const error = new ApiError(404, 'Tag not found')
+        return c.json(error, 404)
+    }
+
+    const updatedTag = await prisma.tag.update({
+        where: {
+            id: tagId
+        },
+        data: {
+            name
+        }
+    })
+    
+    const response = new ApiResponse(
+        200,
+        { tag: updatedTag },
+        'Tag updated successfully'
+    )
+    return c.json(response, 200)
 })
 
 export const deleteTag = asyncHandler(async (c: Context) => {
