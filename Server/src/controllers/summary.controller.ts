@@ -109,7 +109,7 @@ export const createSummary = asyncHandler(async (c: Context) => {
       return c.json(error, 401)
     }
     
-    const { url, title, generationSettings } = await c.req.json()
+    const { url, title, generationSettings, tagIds } = await c.req.json()
     
     // Validate input
     if (!url) {
@@ -168,7 +168,13 @@ export const createSummary = asyncHandler(async (c: Context) => {
         content: summary, 
         ownerId: user.id,
         generationSettings: settings,
+        tags: tagIds ? {
+          connect: tagIds.map((id: number) => ({ id }))
+        } : undefined
       },
+      include: {
+        tags: true
+      }
     })
     
     const response = new ApiResponse(
@@ -198,6 +204,123 @@ export const createSummary = asyncHandler(async (c: Context) => {
   }
 })
 
+export const addTagsToSummary = asyncHandler(async (c: Context) => {
+  const prisma = getPrismaClient(c.env?.DATABASE_URL)
+  const user = c.get('user')
+  const summaryId = parseInt(c.req.param('id'))
+  const { tagIds } = await c.req.json()
+
+  if (!user) {
+    const error = new ApiError(401, 'Unauthorized')
+    return c.json(error, 401)
+  }
+
+  if (isNaN(summaryId)) {
+    const error = new ApiError(400, 'Invalid summary ID')
+    return c.json(error, 400)
+  }
+
+  if (!Array.isArray(tagIds) || tagIds.length === 0) {
+    const error = new ApiError(400, 'Tag IDs array is required')
+    return c.json(error, 400)
+  }
+
+  // Verify summary exists and belongs to user
+  const summary = await prisma.summary.findUnique({
+    where: { id: summaryId, ownerId: user.id }
+  })
+
+  if (!summary) {
+    const error = new ApiError(404, 'Summary not found')
+    return c.json(error, 404)
+  }
+
+  // Verify all tags exist and belong to user
+  const tags = await prisma.tag.findMany({
+    where: {
+      id: { in: tagIds },
+      ownerId: user.id
+    }
+  })
+
+  if (tags.length !== tagIds.length) {
+    const error = new ApiError(400, 'One or more tags not found or do not belong to you')
+    return c.json(error, 400)
+  }
+
+  // Connect tags to summary
+  const updatedSummary = await prisma.summary.update({
+    where: { id: summaryId },
+    data: {
+      tags: {
+        connect: tagIds.map(id => ({ id }))
+      }
+    },
+    include: {
+      tags: true
+    }
+  })
+
+  const response = new ApiResponse(
+    200,
+    { summary: updatedSummary },
+    'Tags added to summary successfully'
+  )
+  return c.json(response, 200)
+})
+
+export const removeTagsFromSummary = asyncHandler(async (c: Context) => {
+  const prisma = getPrismaClient(c.env?.DATABASE_URL)
+  const user = c.get('user')
+  const summaryId = parseInt(c.req.param('id'))
+  const { tagIds } = await c.req.json()
+
+  if (!user) {
+    const error = new ApiError(401, 'Unauthorized')
+    return c.json(error, 401)
+  }
+
+  if (isNaN(summaryId)) {
+    const error = new ApiError(400, 'Invalid summary ID')
+    return c.json(error, 400)
+  }
+
+  if (!Array.isArray(tagIds) || tagIds.length === 0) {
+    const error = new ApiError(400, 'Tag IDs array is required')
+    return c.json(error, 400)
+  }
+
+  // Verify summary exists and belongs to user
+  const summary = await prisma.summary.findUnique({
+    where: { id: summaryId, ownerId: user.id }
+  })
+
+  if (!summary) {
+    const error = new ApiError(404, 'Summary not found')
+    return c.json(error, 404)
+  }
+
+  const updatedSummary = await prisma.summary.update({
+    where: { id: summaryId },
+    data: {
+      tags: {
+        disconnect: tagIds.map(id => ({ id }))
+      }
+    },
+    include: {
+      tags: true
+    }
+  })
+
+  const response = new ApiResponse(
+    200,
+    { summary: updatedSummary },
+    'Tags removed from summary successfully'
+  )
+  return c.json(response, 200)
+})
+
+
 export const getSummaries = asyncHandler(async (c: Context) => {
   const prisma = getPrismaClient(c.env?.DATABASE_URL)
   const user = c.get('user')
@@ -210,6 +333,9 @@ export const getSummaries = asyncHandler(async (c: Context) => {
   const summaries = await prisma.summary.findMany({
     where: {
       ownerId: user.id
+    },
+    include: {
+      tags: true
     }
   })
 
@@ -221,13 +347,14 @@ export const getSummaries = asyncHandler(async (c: Context) => {
   return c.json(response, 200)
 })
 
+
 export const getSummaryById = asyncHandler(async (c: Context) => {
   const prisma = getPrismaClient(c.env?.DATABASE_URL)
   const user = c.get('user')
   const summaryId = parseInt(c.req.param('id'))
+  
   if (!user) {
-    const error = new ApiError(401, 'Unauthorized'
-    )
+    const error = new ApiError(401, 'Unauthorized')
     return c.json(error, 401)
   }
   
@@ -240,6 +367,9 @@ export const getSummaryById = asyncHandler(async (c: Context) => {
     where: {
       id: summaryId,
       ownerId: user.id
+    },
+    include: {
+      tags: true
     }
   })
 
@@ -250,16 +380,7 @@ export const getSummaryById = asyncHandler(async (c: Context) => {
 
   const response = new ApiResponse(
     200,
-    {
-      summary: {
-        id: summary.id,
-        url: summary.originalUrl,
-        title: summary.title,
-        summary: summary.content,
-        generationSettings: summary.generationSettings,
-        createdAt: summary.createdAt,
-      }
-    },
+    { summary },
     'Summary retrieved successfully'
   )
 
