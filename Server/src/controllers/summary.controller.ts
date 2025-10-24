@@ -103,64 +103,67 @@ export const createSummary = asyncHandler(async (c: Context) => {
   try {
     const prisma = getPrismaClient(c.env?.DATABASE_URL)
     const user = c.get('user')
+    const apiKey = c.env?.GEMINI_API_KEY
     
     if (!user) {
       const error = new ApiError(401, 'Unauthorized')
       return c.json(error, 401)
     }
     
+    if (!apiKey) {
+      const error = new ApiError(500, 'API key not configured')
+      return c.json(error, 500)
+    }
+    
     const { url, title, generationSettings, tagIds } = await c.req.json()
     
-    // Validate input
     if (!url) {
       const error = new ApiError(400, 'URL is required')
       return c.json(error, 400)
     }
-    
-    // Validate URL format
-    try {
-      new URL(url)
-    } catch {
-      const error = new ApiError(400, 'Invalid URL format')
+
+    // Validate tagIds if provided
+    if (tagIds && !Array.isArray(tagIds)) {
+      const error = new ApiError(400, 'tagIds must be an array')
       return c.json(error, 400)
     }
-    
-    // Validate generation settings if provided
-    const settings: GenerationSettings = generationSettings || {}
-    
-    if (settings.length && !['Brief', 'Standard', 'Detailed'].includes(settings.length)) {
-      const error = new ApiError(400, 'Invalid length setting. Must be: Brief, Standard, or Detailed')
-      return c.json(error, 400)
+
+    // Fetch and validate tags belong to user
+    if (tagIds && tagIds.length > 0) {
+      const tags = await prisma.tag.findMany({
+        where: {
+          id: { in: tagIds },
+          ownerId: user.id
+        }
+      })
+      
+      if (tags.length !== tagIds.length) {
+        const error = new ApiError(400, 'One or more tags not found or do not belong to you')
+        return c.json(error, 400)
+      }
     }
     
-    if (settings.format && !['Paragraph', 'Bullet Points', 'Key Takeaways'].includes(settings.format)) {
-      const error = new ApiError(400, 'Invalid format setting. Must be: Paragraph, Bullet Points, or Key Takeaways')
-      return c.json(error, 400)
-    }
-    
-    if (settings.tone && !['Professional', 'Casual', 'Academic'].includes(settings.tone)) {
-      const error = new ApiError(400, 'Invalid tone setting. Must be: Professional, Casual, or Academic')
-      return c.json(error, 400)
-    }
+    const settings = generationSettings || {}
     
     // Fetch article content
-    const articleText = await fetchArticleContent(url)
-    
-    if (!articleText || articleText.length < 100) {
-      const error = new ApiError(400, 'Could not extract sufficient content from the URL. The page may be empty or protected.')
-      return c.json(error, 400)
+    let articleText: string
+    try {
+      articleText = await fetchArticleContent(url)
+    } catch (error) {
+      const apiError = new ApiError(400, 'Failed to fetch article content. Please check the URL.')
+      return c.json(apiError, 400)
     }
     
     // Generate summary using Gemini
-    const geminiApiKey = c.env?.GEMINI_API_KEY
-    if (!geminiApiKey) {
-      const error = new ApiError(500, 'Gemini API key not configured')
-      return c.json(error, 500)
+    let summary: string
+    try {
+      summary = await generateSummary(articleText, apiKey, settings)
+    } catch (error) {
+      const apiError = new ApiError(500, 'Failed to generate summary')
+      return c.json(apiError, 500)
     }
     
-    const summary = await generateSummary(articleText, geminiApiKey, settings)
-    
-    // Save to database
+    // Save to database with tags
     const savedSummary = await prisma.summary.create({
       data: {
         originalUrl: url,
@@ -168,7 +171,7 @@ export const createSummary = asyncHandler(async (c: Context) => {
         content: summary, 
         ownerId: user.id,
         generationSettings: settings,
-        tags: tagIds ? {
+        tags: tagIds && tagIds.length > 0 ? {
           connect: tagIds.map((id: number) => ({ id }))
         } : undefined
       },
@@ -179,27 +182,14 @@ export const createSummary = asyncHandler(async (c: Context) => {
     
     const response = new ApiResponse(
       201,
-      {
-        summary: {
-          id: savedSummary.id,
-          url: savedSummary.originalUrl,
-          title: savedSummary.title,
-          summary: savedSummary.content,
-          generationSettings: savedSummary.generationSettings,
-          createdAt: savedSummary.createdAt,
-        }
-      },
-      'Summary generated successfully'
+      { summary: savedSummary },
+      'Summary created successfully'
     )
-    
     return c.json(response, 201)
+    
   } catch (error) {
-    // Handle any errors that weren't caught earlier
-    const apiError = new ApiError(
-      500,
-      'Failed to create summary',
-      [error instanceof Error ? error.message : 'Unknown error']
-    )
+    console.error('Error in createSummary:', error)
+    const apiError = new ApiError(500, 'Internal Server Error')
     return c.json(apiError, 500)
   }
 })
