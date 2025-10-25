@@ -23,7 +23,7 @@ export default function Hero() {
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-navy-900 dark:text-white">
           Read Less, Learn More.
           <br className="hidden sm:block" />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-blue-600 to-orange-500">
+          <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-500 via-blue-600 to-orange-500">
             Instant Article Summaries
           </span>
         </h1>

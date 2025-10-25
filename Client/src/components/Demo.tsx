@@ -121,7 +121,7 @@ export default function Demo() {
     try {
       const domain = new URL(url).hostname.replace("www.", "");
       return domain;
-    } catch (error) {
+    } catch {
       return url;
     }
   };
@@ -157,7 +157,7 @@ export default function Demo() {
               />
               <Button
                 type="submit"
-                className="absolute right-1 top-1 bottom-1 bg-gradient-to-r from-blue-500 to-orange-500 hover:from-blue-600 hover:to-orange-600 text-white"
+                className="absolute right-1 top-1 bottom-1 bg-linear-to-r from-blue-500 to-orange-500 hover:from-blue-600 hover:to-orange-600 text-white"
                 disabled={isFetching}
               >
                 {isFetching ? (
