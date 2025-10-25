@@ -8,7 +8,7 @@ export default function Popup() {
   const handleClick = () => {
     setIsLoading(true);
 
-    if (window !== "undefined" && window.chrome && window.chrome.tabs) {
+    if (typeof window !== "undefined" && window.chrome && window.chrome.tabs) {
       window.chrome.tabs.query(
         { active: true, currentWindow: true },
         (tabs) => {

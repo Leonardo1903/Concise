@@ -27,13 +27,18 @@ import {
 } from "@/components/ui/tooltip";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
+interface Article {
+  url: string;
+  summary: string;
+}
+
 export default function Demo() {
-  const [article, setArticle] = useState({
+  const [article, setArticle] = useState<Article>({
     url: "",
     summary: "",
   });
 
-  const [allArticles, setAllArticles] = useState([]);
+  const [allArticles, setAllArticles] = useState<Article[]>([]);
   const [copiedUrl, setCopiedUrl] = useState("");
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
 
@@ -80,7 +85,7 @@ export default function Demo() {
     window.history.replaceState({}, "", newUrl);
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { data } = await getSummary({ articleUrl: article.url });
 
@@ -95,14 +100,14 @@ export default function Demo() {
     }
   };
 
-  const handleCopy = (e, url) => {
+  const handleCopy = (e: React.MouseEvent, url: string) => {
     e.stopPropagation();
     navigator.clipboard.writeText(url);
     setCopiedUrl(url);
     setTimeout(() => setCopiedUrl(""), 1500);
   };
 
-  const handleRemove = (e, url) => {
+  const handleRemove = (e: React.MouseEvent, url: string) => {
     e.stopPropagation();
     const updatedArticles = allArticles.filter((item) => item.url !== url);
     setAllArticles(updatedArticles);
@@ -112,7 +117,7 @@ export default function Demo() {
     }
   };
 
-  const getDomainFromUrl = (url) => {
+  const getDomainFromUrl = (url: string) => {
     try {
       const domain = new URL(url).hostname.replace("www.", "");
       return domain;

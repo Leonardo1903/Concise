@@ -22,3 +22,4 @@ export default defineConfig({
   },
   publicDir: "public", // includes icon.png etc.
 });
+
