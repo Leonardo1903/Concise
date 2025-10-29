@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@/context/themeContext";
+import { Toaster } from "@/components/ui/sonner"
 import { Home, Login, Register } from "@/pages";
 
 const router = createBrowserRouter([
@@ -30,6 +31,7 @@ export default function App() {
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
       <RouterProvider router={router} />
+      <Toaster position="bottom-right" />
     </ThemeProvider>
   );
 }
