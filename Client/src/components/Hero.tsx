@@ -23,7 +23,7 @@ export default function Hero() {
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
             Read Less,
             <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-blue-500 to-orange-500">
+            <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-600 via-blue-500 to-orange-500">
               Learn More
             </span>
           </h1>
@@ -38,7 +38,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <Button
               size="lg"
-              className="group bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-8 py-6 text-lg"
+              className="group bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-8 py-6 text-lg"
               onClick={scrollToDemo}
             >
               Try it Now

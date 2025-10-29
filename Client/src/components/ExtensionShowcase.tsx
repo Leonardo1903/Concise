@@ -4,7 +4,7 @@ import { Chrome, Download, MousePointerClick, Sparkles } from "lucide-react";
 
 export default function ExtensionShowcase() {
   return (
-    <section className="w-full py-20 md:py-32 bg-gradient-to-br from-blue-50 via-slate-50 to-orange-50 dark:from-blue-950/20 dark:via-slate-900 dark:to-orange-950/20">
+    <section className="w-full py-20 md:py-32 bg-linear-to-br from-blue-50 via-slate-50 to-orange-50 dark:from-blue-950/20 dark:via-slate-900 dark:to-orange-950/20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -20,7 +20,7 @@ export default function ExtensionShowcase() {
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
                 Summarize Any Page
                 <br />
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-orange-500">
+                <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-600 to-orange-500">
                   With One Click
                 </span>
               </h2>
@@ -32,7 +32,7 @@ export default function ExtensionShowcase() {
 
               <div className="space-y-4 pt-4">
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-950/50 flex items-center justify-center mt-1">
+                  <div className="shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-950/50 flex items-center justify-center mt-1">
                     <span className="text-xs font-bold text-blue-600 dark:text-blue-400">1</span>
                   </div>
                   <div>
@@ -46,7 +46,7 @@ export default function ExtensionShowcase() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-950/50 flex items-center justify-center mt-1">
+                  <div className="shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-950/50 flex items-center justify-center mt-1">
                     <span className="text-xs font-bold text-blue-600 dark:text-blue-400">2</span>
                   </div>
                   <div>
@@ -60,7 +60,7 @@ export default function ExtensionShowcase() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-950/50 flex items-center justify-center mt-1">
+                  <div className="shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-950/50 flex items-center justify-center mt-1">
                     <span className="text-xs font-bold text-blue-600 dark:text-blue-400">3</span>
                   </div>
                   <div>
@@ -77,7 +77,7 @@ export default function ExtensionShowcase() {
               <div className="pt-6">
                 <Button
                   size="lg"
-                  className="group bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-8 py-6 text-lg"
+                  className="group bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-8 py-6 text-lg"
                   onClick={() => window.open("https://chrome.google.com/webstore", "_blank")}
                 >
                   <Download className="mr-2 h-5 w-5" />
@@ -103,11 +103,11 @@ export default function ExtensionShowcase() {
                 </div>
 
                 {/* Extension Popup */}
-                <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 p-8">
+                <div className="bg-linear-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 p-8">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-500 to-orange-500 flex items-center justify-center">
                           <Sparkles className="h-4 w-4 text-white" />
                         </div>
                         <span className="font-semibold text-slate-900 dark:text-white">
@@ -130,7 +130,7 @@ export default function ExtensionShowcase() {
                         </p>
                       </div>
 
-                      <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+                      <Button className="w-full bg-linear-to-r from-blue-600 to-blue-500 text-white">
                         <Sparkles className="mr-2 h-4 w-4" />
                         Summarize This Page
                       </Button>

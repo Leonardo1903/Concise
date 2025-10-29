@@ -83,7 +83,7 @@ export default function Features() {
                 className={`${feature.className} group relative overflow-hidden border-slate-200 dark:border-slate-700/50 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 hover:shadow-lg dark:bg-slate-800/50`}
               >
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  className={`absolute inset-0 bg-linear-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                 />
                 <div className="relative p-6 md:p-8 h-full flex flex-col justify-between">
                   <div>

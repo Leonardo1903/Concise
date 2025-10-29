@@ -47,7 +47,7 @@ export default function HowItWorks() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             {/* Connection Lines (Desktop) */}
-            <div className="hidden md:block absolute top-20 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-blue-200 via-purple-200 to-orange-200 dark:from-blue-900 dark:via-purple-900 dark:to-orange-900" />
+            <div className="hidden md:block absolute top-20 left-1/4 right-1/4 h-0.5 bg-linear-to-r from-blue-200 via-purple-200 to-orange-200 dark:from-blue-900 dark:via-purple-900 dark:to-orange-900" />
 
             {steps.map((step, index) => {
               const Icon = step.icon;
@@ -90,7 +90,7 @@ export default function HowItWorks() {
 
         {/* Info Card */}
         <div className="max-w-3xl mx-auto mt-16">
-          <Card className="border-blue-200 dark:border-blue-800 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30">
+          <Card className="border-blue-200 dark:border-blue-800 bg-linear-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30">
             <div className="p-8 text-center space-y-4">
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-600 dark:bg-blue-500">
                 <Sparkles className="h-6 w-6 text-white" />
