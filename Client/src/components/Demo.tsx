@@ -86,16 +86,16 @@ export default function Demo() {
     <section id="demo" className="w-full py-20 md:py-32 scroll-mt-20">
       <div className="container mx-auto px-4">
         <div className="text-center space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 dark:bg-orange-950/50 border border-orange-200 dark:border-orange-800">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/30">
             <Sparkles className="h-4 w-4 text-orange-600 dark:text-orange-400" />
             <span className="text-sm font-medium text-orange-700 dark:text-orange-300">
               Try It Now
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
             See It In Action
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             Paste any article URL below and experience the magic of instant
             summarization
           </p>
@@ -103,7 +103,7 @@ export default function Demo() {
 
         {/* Demo Component Code */}
         <div className="w-full max-w-xl mx-auto">
-          <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm dark:bg-slate-900/80">
+          <Card className="border-slate-200 dark:border-slate-700/50 shadow-lg bg-white/80 backdrop-blur-sm dark:bg-slate-800/80">
             <CardHeader className="pb-2">
               <CardTitle className="text-xl">Article Summarizer</CardTitle>
               <CardDescription>
