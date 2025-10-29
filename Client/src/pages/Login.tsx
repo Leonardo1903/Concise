@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -11,22 +12,24 @@ import {
 import { Mail, Lock, ArrowLeft } from "lucide-react";
 import Logo from "@/assets/logo.png";
 import { login } from "@/services/auth";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/context/themeContext";
+import { toast } from "sonner";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       await login({ email, password });
-      alert("Login successful!");
+      toast.success("Login successful!");
     } catch (error) {
-      alert("Login failed. Please try again.");
+      toast.error("Login failed. Please try again.");
+      console.error(error);
     }
-    // TODO: Implement authentication logic
   };
 
   return (
@@ -37,7 +40,7 @@ export default function Login() {
             variant="outline"
             size="sm"
             className="absolute top-6 left-6 gap-2 transition-all border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
-            onClick={() => (window.location.href = "/")}
+            onClick={() => navigate("/")}
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Back to Home</span>
@@ -135,7 +138,7 @@ export default function Login() {
                   Don't have an account?{" "}
                   <button
                     type="button"
-                    onClick={() => (window.location.href = "/register")}
+                    onClick={() => navigate("/register")}
                     className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
                   >
                     Sign up

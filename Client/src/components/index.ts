@@ -6,4 +6,4 @@ export { default as ExtensionShowcase } from "./ExtensionShowcase";
 export { default as Demo } from "./Demo";
 export { default as Footer } from "./Footer";
 export { ThemeToggle } from "./theme-toggle";
-export { ThemeProvider, useTheme } from "./theme-provider";
+

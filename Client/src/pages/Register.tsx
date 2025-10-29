@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,9 +12,11 @@ import {
 import { Mail, Lock, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import Logo from "@/assets/logo.png";
 import { register } from "@/services/auth";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/context/themeContext";
+import { toast } from "sonner";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,18 +27,20 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
     try {
       await register({ name, email, password });
-      alert("Registration successful! Please log in.");
-      window.location.href = "/login";
+      toast.success("Registration successful! Please log in.");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
     } catch (error) {
-      alert("Registration failed. Please try again.");
+      toast.error("Registration failed. Please try again.");
+      console.error(error);
     }
-
   };
 
   const handleViewPassword = () => {
@@ -54,7 +59,7 @@ export default function Register() {
             variant="outline"
             size="sm"
             className="absolute top-6 left-6 gap-2 transition-all border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
-            onClick={() => (window.location.href = "/")}
+            onClick={() => navigate("/")}
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Back to Home</span>
@@ -185,7 +190,9 @@ export default function Register() {
                         type="button"
                         onClick={handleConfirmViewPassword}
                         aria-label={
-                          showConfirmPassword ? "Hide password" : "Show password"
+                          showConfirmPassword
+                            ? "Hide password"
+                            : "Show password"
                         }
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
                       >
@@ -210,7 +217,7 @@ export default function Register() {
                   Already have an account?{" "}
                   <button
                     type="button"
-                    onClick={() => (window.location.href = "/login")}
+                    onClick={() => navigate("/login")}
                     className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
                   >
                     Sign in
