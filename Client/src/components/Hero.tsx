@@ -8,29 +8,28 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full py-20 md:py-32">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
+    <section className="relative w-full border-b border-[rgba(55,50,47,0.12)] dark:border-[rgba(255,255,255,0.08)]">
+      <div className="container mx-auto px-6 md:px-24 py-16 md:py-24">
+        <div className="flex flex-col items-center text-center space-y-6 max-w-[680px] mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800">
-            <Sparkles className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-            <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+          <div className="px-[14px] py-[6px] bg-white dark:bg-[#2a2520] shadow-[0px_0px_0px_4px_rgba(55,50,47,0.05)] dark:shadow-[0px_0px_0px_4px_rgba(255,255,255,0.05)] overflow-hidden rounded-[90px] flex justify-start items-center gap-[8px] border border-[rgba(2,6,23,0.08)] dark:border-[rgba(255,255,255,0.12)]">
+            <div className="w-[14px] h-[14px] relative overflow-hidden flex items-center justify-center">
+              <Sparkles className="h-3.5 w-3.5 text-[#37322F] dark:text-[#E0DEDB]" />
+            </div>
+            <div className="text-center flex justify-center flex-col text-[#37322F] dark:text-[#E0DEDB] text-xs font-medium leading-3">
               AI-Powered Summarization
-            </span>
+            </div>
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
-            Read Less,
-            <br />
-            <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-600 via-blue-500 to-orange-500">
-              Learn More
-            </span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight md:leading-[60px] tracking-tight text-[#49423D] dark:text-[#E0DEDB]">
+            Read Less, Learn More
           </h1>
 
           {/* Subheadline */}
-          <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-2xl">
+          <p className="text-base md:text-lg text-[#605A57] dark:text-[#A8A3A0] font-normal leading-7 max-w-2xl">
             Transform lengthy articles into clear, concise summaries in seconds.
+            <br className="hidden md:block" />
             Powered by advanced AI for smarter reading.
           </p>
 
@@ -38,42 +37,51 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <Button
               size="lg"
-              className="group bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-8 py-6 text-lg"
+              className="group h-10 px-12 py-[6px] relative bg-[#37322F] hover:bg-[#2A2520] shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] overflow-hidden rounded-full text-white text-[13px] font-medium leading-5 transition-all"
               onClick={scrollToDemo}
             >
-              Try it Now
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <div className="w-full h-[41px] absolute left-0 top-0 bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.10)] mix-blend-multiply pointer-events-none"></div>
+              <span className="relative z-10">Try it Now</span>
+              <ArrowRight className="ml-2 h-4 w-4 relative z-10 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="group border-2 px-8 py-6 text-lg"
-              onClick={() => window.open("https://chrome.google.com/webstore", "_blank")}
+              className="h-10 px-12 py-[6px] border border-[rgba(55,50,47,0.12)] dark:border-[rgba(255,255,255,0.12)] text-[#37322F] dark:text-[#E0DEDB] rounded-full text-[13px] font-medium leading-5 hover:bg-[rgba(55,50,47,0.05)] dark:hover:bg-[rgba(255,255,255,0.05)] transition-all"
+              onClick={() =>
+                window.open("https://chrome.google.com/webstore", "_blank")
+              }
             >
-              <Chrome className="mr-2 h-5 w-5" />
+              <Chrome className="mr-2 h-4 w-4" />
               Get Extension
             </Button>
           </div>
 
           {/* Stats */}
-          <div className="flex flex-wrap justify-center gap-8 pt-8 text-sm text-slate-600 dark:text-slate-400">
-            <div className="flex flex-col items-center">
-              <span className="text-2xl font-bold text-slate-900 dark:text-white">
+          <div className="flex flex-wrap justify-center gap-12 pt-12 border-t border-[rgba(55,50,47,0.12)] dark:border-[rgba(255,255,255,0.08)] w-full max-w-md mt-8">
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-3xl font-semibold text-[#49423D] dark:text-[#E0DEDB] tracking-tight">
                 &lt;10s
               </span>
-              <span>Average Time</span>
+              <span className="text-sm text-[#605A57] dark:text-[#A8A3A0] font-medium">
+                Average Time
+              </span>
             </div>
-            <div className="flex flex-col items-center">
-              <span className="text-2xl font-bold text-slate-900 dark:text-white">
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-3xl font-semibold text-[#49423D] dark:text-[#E0DEDB] tracking-tight">
                 100+
               </span>
-              <span>Articles Summarized</span>
+              <span className="text-sm text-[#605A57] dark:text-[#A8A3A0] font-medium">
+                Articles Processed
+              </span>
             </div>
-            <div className="flex flex-col items-center">
-              <span className="text-2xl font-bold text-slate-900 dark:text-white">
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-3xl font-semibold text-[#49423D] dark:text-[#E0DEDB] tracking-tight">
                 Free
               </span>
-              <span>Forever</span>
+              <span className="text-sm text-[#605A57] dark:text-[#A8A3A0] font-medium">
+                Forever
+              </span>
             </div>
           </div>
         </div>
