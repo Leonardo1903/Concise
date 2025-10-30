@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Chrome, Download, MousePointerClick, Sparkles } from "lucide-react";
+import { Globe, Download, MousePointerClick, Sparkles } from "lucide-react";
 
 export default function ExtensionShowcase() {
   return (
@@ -13,9 +13,9 @@ export default function ExtensionShowcase() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="space-y-6">
-              <div className="px-[14px] py-[6px] bg-white dark:bg-[#2a2520] shadow-[0px_0px_0px_4px_rgba(55,50,47,0.05)] dark:shadow-[0px_0px_0px_4px_rgba(255,255,255,0.05)] overflow-hidden rounded-[90px] inline-flex justify-start items-center gap-[8px] border border-[rgba(2,6,23,0.08)] dark:border-[rgba(255,255,255,0.12)]">
-                <div className="w-[14px] h-[14px] relative overflow-hidden flex items-center justify-center">
-                  <Chrome className="h-3.5 w-3.5 text-[#37322F] dark:text-[#E0DEDB]" />
+              <div className="px-3.5 py-1.5 bg-white dark:bg-[#2a2520] shadow-[0px_0px_0px_4px_rgba(55,50,47,0.05)] dark:shadow-[0px_0px_0px_4px_rgba(255,255,255,0.05)] overflow-hidden rounded-[90px] inline-flex justify-start items-center gap-2 border border-[rgba(2,6,23,0.08)] dark:border-[rgba(255,255,255,0.12)]">
+                <div className="w-3.5 h-3.5 relative overflow-hidden flex items-center justify-center">
+                  <Globe className="h-3.5 w-3.5 text-[#37322F] dark:text-[#E0DEDB]" />
                 </div>
                 <div className="text-center flex justify-center flex-col text-[#37322F] dark:text-[#E0DEDB] text-xs font-medium leading-3">
                   Chrome Extension
@@ -84,12 +84,12 @@ export default function ExtensionShowcase() {
               <div className="pt-6">
                 <Button
                   size="lg"
-                  className="group h-10 px-12 py-[6px] relative bg-[#37322F] hover:bg-[#2A2520] shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] overflow-hidden rounded-full text-white text-[13px] font-medium leading-5 transition-all"
+                  className="group h-10 px-12 py-1.5 relative bg-[#37322F] hover:bg-[#2A2520] shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] overflow-hidden rounded-full text-white text-[13px] font-medium leading-5 transition-all"
                   onClick={() =>
                     window.open("https://chrome.google.com/webstore", "_blank")
                   }
                 >
-                  <div className="w-full h-[41px] absolute left-0 top-0 bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.10)] mix-blend-multiply pointer-events-none"></div>
+                  <div className="w-full h-[41px] absolute left-0 top-0 bg-linear-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.10)] mix-blend-multiply pointer-events-none"></div>
                   <Download className="mr-2 h-4 w-4 relative z-10" />
                   <span className="relative z-10">
                     Add to Chrome - It's Free
@@ -126,7 +126,7 @@ export default function ExtensionShowcase() {
                           Concise
                         </span>
                       </div>
-                      <Chrome className="h-5 w-5 text-[#605A57] dark:text-[#A8A3A0]" />
+                      <Globe className="h-5 w-5 text-[#605A57] dark:text-[#A8A3A0]" />
                     </div>
 
                     <div className="space-y-3">
