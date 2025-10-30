@@ -40,7 +40,7 @@ export default function CTA() {
             >
               <div className="w-full h-[41px] absolute left-0 top-0 bg-linear-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.10)] mix-blend-multiply" />
               <span className="relative z-10 text-white dark:text-[#37322F] text-[13px] font-medium leading-5">
-                Try Demo Now
+                Get Started Now
               </span>
             </Button>
           </div>
