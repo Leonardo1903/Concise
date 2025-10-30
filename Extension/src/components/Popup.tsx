@@ -28,7 +28,7 @@ export default function Popup() {
   };
 
   return (
-    <div className="p-5 w-72 bg-gradient-to-b from-slate-50 to-slate-100">
+    <div className="p-5 w-72 bg-background">
       <div className="flex flex-col items-center space-y-4">
         {/* Logo */}
         <div className="flex items-center justify-center mb-1">
@@ -39,11 +39,11 @@ export default function Popup() {
           />
         </div>
 
-        <div className="w-full bg-white rounded-lg shadow-sm border border-slate-200 p-4">
-          <h2 className="text-navy-900 font-medium text-sm mb-2">
+        <div className="w-full bg-card rounded-lg shadow-sm border border-border p-4">
+          <h2 className="text-card-foreground font-medium text-sm mb-2">
             Current Page
           </h2>
-          <p className="text-slate-500 text-xs mb-4">
+          <p className="text-muted-foreground text-xs mb-4">
             Click the button below to generate a concise summary of this
             article.
           </p>
@@ -51,7 +51,7 @@ export default function Popup() {
           <button
             onClick={handleClick}
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-blue-500 to-orange-500 hover:from-blue-600 hover:to-orange-600 text-white font-medium py-2.5 px-4 rounded-md flex items-center justify-center transition-all"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2.5 px-4 rounded-md flex items-center justify-center transition-all disabled:opacity-50"
           >
             {isLoading ? (
               <>
@@ -67,8 +67,8 @@ export default function Popup() {
           </button>
         </div>
 
-        <div className="text-xs text-slate-500 text-center">
-          Powered by OpenAI GPT-4
+        <div className="text-xs text-muted-foreground text-center">
+          Powered by Gemini
         </div>
       </div>
     </div>
